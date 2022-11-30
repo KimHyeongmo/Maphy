@@ -13,9 +13,12 @@ public class door_4_1 : MonoBehaviour
         if (open == true && collision.transform.tag == "player")
         {
             Debug.Log("clear");
-            next_stage.SetActive(true);
-            collision.transform.position = new Vector3(next_stage.transform.position.x,next_stage.transform.position.y+3,next_stage.transform.position.z);
-            current_stage.SetActive(false);
+            //next_stage.SetActive(true);
+            //collision.transform.position = new Vector3(next_stage.transform.position.x,next_stage.transform.position.y+3,next_stage.transform.position.z);
+
+            GameObject.Find("Stage_Manager").GetComponent<reset_stage>().stage_change();
+
+            //current_stage.SetActive(false);
         }
     }
 }
