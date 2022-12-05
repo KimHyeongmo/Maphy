@@ -90,6 +90,7 @@ public class Player_move : MonoBehaviour
 
     void player_move_physics()
     {
+        
         if(Input.GetKey(KeyCode.A))
         {
             player_rigid.AddForce(Vector2.right * player_property.player_side_power * -1, ForceMode2D.Impulse);

@@ -262,6 +262,7 @@ public class user_activity : MonoBehaviour
     void ability_setting_change()
     {
         Vector2 mouse_wheel_change = Input.mouseScrollDelta;
+
         if (mouse_wheel_change.y > 0) //위로 스크롤
         {
             if (current_ability_slot == 1)
