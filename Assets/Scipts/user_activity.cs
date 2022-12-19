@@ -48,6 +48,9 @@ public class user_activity : MonoBehaviour
     public RectTransform slot_1;
     public RectTransform slot_2;
 
+    public RectTransform gage1; //gravity
+    public RectTransform gage2; //bounce
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -267,17 +270,19 @@ public class user_activity : MonoBehaviour
         {
             if (current_ability_slot == 1)
             {
-                if (change_gravityscale > -10)
+                change_gravityscale -= (mouse_wheel_change.y * Constants.GRAVITY_WHEEL_RATE);
+                if (change_gravityscale <= -10)
                 {
-                    change_gravityscale -= (mouse_wheel_change.y * Constants.GRAVITY_WHEEL_RATE);
+                    change_gravityscale = -10;
                     //gravity_gage.position = new Vector3(gravity_gage.position.x, gravity_gage.position.y + mouse_wheel_change.y * Constants.GRAVITY_WHEEL_RATE * 5, gravity_gage.position.z); //�߷� ���� ���� 5�谡 ������ �ȼ����� �����ǹǷ�
                 }
             }
             else if (current_ability_slot == 2)
             {
-                if(change_bounce_rate < 1)
+                change_bounce_rate += (mouse_wheel_change.y * Constants.BOUNCE_WHEEL_RATE);
+                if (change_bounce_rate >= 1)
                 {
-                    change_bounce_rate += (mouse_wheel_change.y * Constants.BOUNCE_WHEEL_RATE);
+                    change_bounce_rate = 1;
                     //bounce_gage.position = new Vector3(bounce_gage.position.x, bounce_gage.position.y + mouse_wheel_change.y * Constants.BOUNCE_WHEEL_RATE * 60, bounce_gage.position.z);
                 }
 
@@ -287,21 +292,32 @@ public class user_activity : MonoBehaviour
         {
             if(current_ability_slot == 1)
             {
-                if (change_gravityscale < 10)
+                change_gravityscale -= (mouse_wheel_change.y * Constants.GRAVITY_WHEEL_RATE);
+                if (change_gravityscale >= 10)
                 {
-                    change_gravityscale -= (mouse_wheel_change.y * Constants.GRAVITY_WHEEL_RATE);
+                    change_gravityscale = 10;
                     //gravity_gage.position = new Vector3(gravity_gage.position.x, gravity_gage.position.y + mouse_wheel_change.y * Constants.GRAVITY_WHEEL_RATE * 5, gravity_gage.position.z);
                 }
             }
             else if(current_ability_slot == 2)
             {
-                if (change_bounce_rate > 0)
+                change_bounce_rate += (mouse_wheel_change.y * Constants.BOUNCE_WHEEL_RATE);
+                if (change_bounce_rate <= 0)
                 {
-                    change_bounce_rate += (mouse_wheel_change.y * Constants.BOUNCE_WHEEL_RATE);
+                    change_bounce_rate = 0;
                     //bounce_gage.position = new Vector3(bounce_gage.position.x, bounce_gage.position.y + mouse_wheel_change.y * Constants.BOUNCE_WHEEL_RATE * 60, bounce_gage.position.z);
                 }
             }
         }
+
+        change_gage_frame(change_gravityscale,change_bounce_rate);
+    }
+
+    void change_gage_frame(float change_gravity_scale_p, float change_bounce_rate_p)
+    {
+        //frame size 80 to -80
+        gage1.localPosition = new Vector2(0, -8 * change_gravity_scale_p); //-8x
+        gage2.localPosition = new Vector2(0, 160 * change_bounce_rate_p - 80); //160x - 80
     }
 
     void physics_change()

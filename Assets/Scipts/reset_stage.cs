@@ -63,6 +63,7 @@ public class reset_stage : MonoBehaviour
     {
         current_stage++;
 
+
         if(current_stage == prefab.Length)
         {
             Destroy(GameObject.Find("Player").GetComponent<Player_move>());
